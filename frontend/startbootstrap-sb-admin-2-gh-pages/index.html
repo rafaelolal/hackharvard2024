@@ -416,6 +416,39 @@
 
                     </div>
 
+                    <script>
+
+                        // Loads recording elements //
+                        document.addEventListener('DOMContentLoaded', function() {
+                            button = document.getElementById('rec_button');
+                            text = document.getElementById('button_text');
+                        });
+                        var recording = false;
+
+                        // Toggles recording status and sends information about a recording's time interval //
+                        function record(){
+                            if (recording){
+                                button.className = "btn btn-success btn-icon-split";
+                                text.innerHTML = "Start Recording";
+                                // Send information to Anu's portion.
+                            } else {
+                                button.className = "btn btn-danger btn-icon-split";
+                                text.innerHTML = "Stop Recording";
+                                // Send information to Anu's portion.
+                            }
+                            recording = !recording;
+                        }
+                    </script>
+
+                    <div class = "my-2"></div>
+                        <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split">
+                            <span class = "icon text-white-50">
+                                <i class = "fas fa-trash"></i>
+                            </span>
+                            <span id = "button_text", class = "text", onclick = "record()"> Start Recording </span>
+                        </a>
+
+
 
 
 
