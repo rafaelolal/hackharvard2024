@@ -470,6 +470,11 @@
     </div>
 
     <script>
+        function dummy_search(searchQuery) {
+            console.log("User searched for: " + searchQuery)
+            return [1,2,3,searchQuery]
+        }
+
         searchInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault(); // Prevent the form from submitting
@@ -480,7 +485,7 @@
         document.getElementById('searchButton').addEventListener('click', function() {
             event.preventDefault();
             let searchQuery = document.getElementById('searchInput').value;
-            console.log("User searched for: " + searchQuery);
+            console.log(dummy_search(searchQuery));
 
             searchInput.value = "";
         });
