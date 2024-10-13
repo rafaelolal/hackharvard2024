@@ -121,10 +121,14 @@ function pull() {
 
 function save() {
     event.preventDefault();
+
 }
 
 function newpt() {
     event.preventDefault();
+
+
+
 }
 
 function startRecording() {
