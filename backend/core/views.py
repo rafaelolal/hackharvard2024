@@ -2,7 +2,7 @@ import requests
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
+import json
 from .models import Patient
 from .recorder import create_AR, process_AR, stop_AR, transcribe_AR
 
@@ -243,7 +243,8 @@ def create_patient(request, id):
 @csrf_exempt
 def update_patient(request, id):
     patient = Patient.objects.get(id=id)
-    data = request.POST.dict()
+    data = json.loads(request.body)
+    print("my data", data)
     transcription = data.get("transcription")
     data = data.get("data")
     patient.records.create(transcription=transcription, data=data)

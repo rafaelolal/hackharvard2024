@@ -4,6 +4,7 @@ var filename;
 var recording_id;
 var updates;
 var transcript;
+var cur_id;
 
 
 // function dummy_search(searchQuery) {
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         let searchQuery = document.getElementById('searchInput').value;
 
-        console.log("start")
+        // console.log("start")
 
         // fetch(`${BASE}/get_patient/${searchQuery}`).then(response => {
         //     if (response.status == 500){
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //     }
         //     set_data(data)
         // });
-        fetch(`http://127.0.0.1:8000/get_patient/${searchQuery}/`, {
+        fetch(`${BASE}/get_patient/${searchQuery}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -65,11 +66,12 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
-                console.log("mid")
+                // console.log("mid")
                 // if (response.status == 500) {
                 //     data = "Not Found";
                 // }
-                set_data(data);
+                cur_id = searchQuery;
+                set_data(data.data);
 
                 console.log("Patient Data");
                 // You can store the recorder_id or use it as needed
@@ -145,6 +147,36 @@ function pull() {
 
 function save() {
     event.preventDefault();
+    fetch(`${BASE}/update_patient/${cur_id}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            data: {
+                "mental_status": document.querySelector('#R1C1 textarea').value, // Send the data in the request body
+                "hypotension": document.querySelector('#R1C2 textarea').value,
+                "kidney": document.querySelector('#R1C3 textarea').value,
+
+                "hypoglycemia": document.querySelector('#R2C1 textarea').value,
+                "pressure_injury": document.querySelector('#R2C2 textarea').value,
+                "skin_damage": document.querySelector('#R2C3 textarea').value,
+
+                "dehydration": document.querySelector('#R3C1 textarea').value,
+                "respiratory_infection": document.querySelector('#R3C2 textarea').value,
+                "other_infection": document.querySelector('#R3C3 textarea').value,
+            },
+            transcription: transcript || ""
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+
+        })
+        .catch(error => {
+            console.log("Patient Save", error)
+
+        });
 
 }
 
