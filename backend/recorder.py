@@ -2,7 +2,10 @@ import whisper
 import pyaudio
 from pydub import AudioSegment
 import threading
+import openai
+from openai import OpenAI
 
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 class AudioRecorder:
@@ -73,13 +76,42 @@ def stop_AR(id):
     return recordings[id].stop_recording(id)
 
 def process_AR(filename):
-    model = whisper.load_model("base")  # Change the model size if needed
-    result = model.transcribe(f"./{filename}")  # Replace with your file path
-    print(result["text"]) # Output the transcribed text
+    model = whisper.load_model("./tiny.pt")
+    result = model.transcribe(f"./{filename}")
+    recorded_text = result["text"]
+
+    # ChatGPT prompt
+    prompt = """Given the following text, provide any information that was stated regarding the
+    categories of mental status, hypotension, kidney, hypoglycemia, pressure injury, skin damage,
+    dehydration, respirator infection, other infection: \"""" + recorded_text + """\" Return your
+    answer in the form below, leaving unmentioned categories as empty strings:
+        format: {
+         "mental_status": "",
+         "hypotension": "",
+         "kidney": ""
+         "hypoglycemia": "",
+         "pressure_injury": "",
+         "skin_damage": "",
+         "dehydration": "",
+         "respirator_infection": "",
+         "other_infection": "",
+     }"""
+
+    messages2 = [{"role": "user", "content": prompt}]
+    response = client.chat.completions.create(
+        messages = messages2,
+        model="gpt-4",
+        max_tokens=150,
+        temperature=0.7
+    )
+
+
+    return response.choices[0].message.content
 
 
 ar = AudioRecorder()
 id = ar.start_recording()
 import time
-time.sleep(6)
-ar.stop_recording(id)
+time.sleep(10)
+filename = ar.stop_recording(id)
+process_AR(filename)

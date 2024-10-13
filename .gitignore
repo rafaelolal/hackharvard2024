@@ -2,3 +2,6 @@ env
 .history
 .DS_Store
 __pycache__
+*.pt
+*.mp3
+*.env
