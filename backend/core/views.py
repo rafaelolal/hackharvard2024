@@ -167,7 +167,7 @@ def initialize_patient(request, id):
     data["skin_damage"] = fetch_both_types(
         FHIR_SERVER_URL,
         id,
-        ["39125-4", "39099-1", "39107-2"],
+        [],  # ["39125-4", "39099-1", "39107-2"],
         ["271807003", "247441003", "225569009", "225573007", "225575000"],
     )
 
@@ -222,13 +222,20 @@ def initialize_patient(request, id):
 
     patient.records.create(transcription="", data=data)
 
-    print("my data", data)
-
     return JsonResponse({"success": True})
+
+
+def check_patient_exists(patient_id):
+    url = f"{FHIR_SERVER_URL}/Patient/{patient_id}"
+    response = requests.get(url)
+    return response.status_code == 200
 
 
 @csrf_exempt
 def create_patient(request, id):
+    if check_patient_exists(id):
+        return initialize_patient(request, id)
+
     Patient.objects.create(id=id)
     return JsonResponse({"success": True})
 
