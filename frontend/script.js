@@ -22,51 +22,52 @@ function set_data(data) {
 
 
 }
+document.addEventListener('DOMContentLoaded', function () {
+    searchInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent the page refresh
+            searchButton.click(); // Trigger the button click action
+        }
+    });
 
-searchInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent the page refresh
-        searchButton.click(); // Trigger the button click action
-    }
-});
+    document.getElementById('searchButton').addEventListener('click', function () {
+        event.preventDefault();
+        let searchQuery = document.getElementById('searchInput').value;
 
-document.getElementById('searchButton').addEventListener('click', function () {
-    event.preventDefault();
-    let searchQuery = document.getElementById('searchInput').value;
+        console.log("start")
 
-    console.log("start")
-
-    // fetch(`${BASE}/get_patient/${searchQuery}`).then(response => {
-    //     if (response.status == 500){
-    //         data = "Not Found";
-    //     } else {
-    //         data = response;
-    //     }
-    //     set_data(data)
-    // });
-    fetch(`http://127.0.0.1:8000/get_patient/${searchQuery}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log("mid")
-            if (response.status == 500) {
-                data = "Not Found";
-            }
-            set_data("Not Found");
-
-            console.log("Patient Data");
-            // You can store the recorder_id or use it as needed
+        // fetch(`${BASE}/get_patient/${searchQuery}`).then(response => {
+        //     if (response.status == 500){
+        //         data = "Not Found";
+        //     } else {
+        //         data = response;
+        //     }
+        //     set_data(data)
+        // });
+        fetch(`http://127.0.0.1:8000/get_patient/${searchQuery}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
-        .catch(error => {
-            console.log("Patient Data Error Caught")
-            set_data("Not Found");
-        });
-    searchInput.value = "";
-    console.log("end")
+            .then(response => response.json())
+            .then(data => {
+                console.log("mid")
+                if (response.status == 500) {
+                    data = "Not Found";
+                }
+                set_data("Not Found");
+
+                console.log("Patient Data");
+                // You can store the recorder_id or use it as needed
+            })
+            .catch(error => {
+                console.log("Patient Data Error Caught")
+                set_data("Not Found");
+            });
+        searchInput.value = "";
+        console.log("end")
+    });
 });
 
 // document.addEventListener('DOMContentLoaded', function () {
