@@ -181,7 +181,8 @@
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-7 my-2 my-md-0 mw-100 navbar-search">
 
-                        <a id="save_button" , href="#" , class="btn btn-primary btn-icon-split" , onclick="newpt()">
+                        <a id="save_button" , href="#" , class="btn btn-primary btn-icon-split" , data-toggle="modal"
+                            data-target="#logoutModal">
                             <span class="icon text-grey-100">
                                 <i id="save_icon" , class="fas fa-user-plus"></i>
                             </span>
@@ -193,24 +194,34 @@
                     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                            <div id="popup" class="modal-content">
 
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Please enter the patient ID.</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel" , center>Please enter the patient ID.
+                                    </h5>
 
                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true"></span>
                                     </button>
                                 </div>
 
-                                <div class="modal-body">
+                                <form onsubmit="newpt(event)">
 
-                                </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input id="newpt_id" type="number" class="form-control form-control-user"
+                                                placeholder="ID Number...">
+                                        </div>
+                                    </div>
 
-                                <div class="modal-footer">
-                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                    <a class="btn btn-primary" href="login.html"> Proceed </a>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button"
+                                            data-dismiss="modal">Cancel</button>
+
+                                        <input id="create_newpt" type="submit" class="btn btn-primary" value="Create">
+                                    </div>
+
+                                </form>
 
                             </div>
                         </div>
