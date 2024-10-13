@@ -10,8 +10,15 @@ FHIR_SERVER_URL = settings.FHIR_SERVER_URL
 
 
 @csrf_exempt
-def update_or_create_patient(request, id):
-    patient = Patient.objects.get_or_create(id=id)
+def create_patient(request, id):
+    patient, created = Patient.objects.create(id=id)
+    return JsonResponse({"success": True})
+
+
+@csrf_exempt
+# fetch(/update_patient/[id]/)
+def update_patient(request, id):
+    patient = Patient.objects.get(id=id)
     data = request.POST.dict()
     transcription = data.get("transcription")
     data = data.get("data")
