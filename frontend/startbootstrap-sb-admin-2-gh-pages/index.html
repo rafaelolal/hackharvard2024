@@ -18,7 +18,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
 
 </head>
 
@@ -381,9 +381,9 @@
 
                         // Loads recording elements //
                         document.addEventListener('DOMContentLoaded', function() {
-                            button = document.getElementById('rec_button');
-                            icon = document.getElementById("icon")
-                            text = document.getElementById('button_text');
+                            rec_button = document.getElementById("rec_button");
+                            rec_icon = document.getElementById("rec_icon")
+                            rec_text = document.getElementById("rec_text");
                         });
                         var recording = false;
 
@@ -391,37 +391,40 @@
                         function record(){
                             event.preventDefault();
                             if (recording){
-                                button.className = "btn btn-success btn-icon-split";
-                                icon.className = "far fa-play-circle";
-                                text.innerHTML = "Start Recording";
+                                rec_button.className = "btn btn-success btn-icon-split";
+                                rec_icon.className = "far fa-play-circle";
+                                rec_text.innerHTML = "Start Recording";
                                 // Send information to Anu's portion.
                             } else {
-                                button.className = "btn btn-danger btn-icon-split";
-                                icon.className = "far fa-pause-circle";
-                                text.innerHTML = "Stop Recording";
+                                rec_button.className = "btn btn-danger btn-icon-split";
+                                rec_icon.className = "far fa-pause-circle";
+                                rec_text.innerHTML = "Stop Recording";
                                 // Send information to Anu's portion.
                             }
                             recording = !recording;
                         }
                     </script>
 
-                    <div id = "Button Row", class = "row">
+                    <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split" >
+                        <span class = "icon text-grey-100">
+                            <i id = "rec_icon", class = "far fa-play-circle"></i>
+                        </span>
+                        <span id = "rec_text", class = "text", onclick = "record()"> Start Recording </span>
+                    </a>
 
-                        <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split" >
-                            <span class = "icon text-grey-100">
-                                <i id = "icon", class = "far fa-play-circle"></i>
-                            </span>
-                            <span id = "button_text", class = "text", onclick = "record()"> Start Recording </span>
-                        </a>
+                    <a id = "save_button", href = "#", class = "btn btn-primary btn-icon-split">
+                        <span class = "icon text-grey-100">
+                            <i id = "save_icon", class = "far fa-save"></i>
+                        </span>
+                        <span id = "save_text", class = "text"> Save Changes </span>
+                    </a>
 
-                        <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split">
-                            <span class = "icon text-grey-100">
-                                <i id = "icon", class = "far fa-play-circle"></i>
-                            </span>
-                            <span id = "button_text", class = "text", onclick = "record()"> Start Recording </span>
-                        </a>
-
-                    </div>
+                    <a id = "pull_button", href = "#", class = "btn btn-pull btn-icon-split">
+                        <span class = "icon text-grey-100">
+                            <i id = "pull_icon", class = "far fa-save"></i>
+                        </span>
+                        <span id = "pull_text", class = "text"> Pull Whisper Data </span>
+                    </a>
 
 
 
