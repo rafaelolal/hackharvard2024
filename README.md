@@ -4,7 +4,7 @@
 
 * `brew install portaudio`
 * `brew install ffmpeg`
-* `python[3] -m venv env`
+* `python -m venv env` (>=3.9 and <3.13)
 * `source env/bin/activate` (MacOS)
 * `pip install -r requirements.txt`
 * Download a whisper model from `https://github.com/openai/whisper/blob/main/whisper/__init__.py`
