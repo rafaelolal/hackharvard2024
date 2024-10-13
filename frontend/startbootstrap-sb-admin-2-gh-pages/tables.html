@@ -398,7 +398,7 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>Tiger Nixon</td>
                                             <td>System Architect</td>
                                             <td>Edinburgh</td>
@@ -853,7 +853,7 @@
                                             <td>27</td>
                                             <td>2011/01/25</td>
                                             <td>$112,000</td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -906,6 +906,44 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Define the API endpoint (replace with your actual API URL)
+            const apiUrl = 'http://localhost:3000/api/data'; // This points to the locally running API
+
+            // Fetch data from the server
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Get the tbody element where rows will be inserted
+                    const tableBody = document.querySelector('#dataTable tbody');
+
+                    // Clear existing rows if necessary
+                    tableBody.innerHTML = '';
+
+                    // Loop through the data and create table rows
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td>${item.name}</td>
+                            <td>${item.position}</td>
+                            <td>${item.office}</td>
+                            <td>${item.age}</td>
+                            <td>${item.start_date}</td>
+                            <td>${item.salary}</td>
+                        `;
+
+                        // Append the new row to the table body
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        });
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
