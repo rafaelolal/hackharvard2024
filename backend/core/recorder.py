@@ -7,6 +7,7 @@ from openai import OpenAI
 from pydub import AudioSegment
 
 client = OpenAI(api_key=settings.OPENAI_API_KEY)
+RECORDINGS_FOLDER = "../../recordings"
 
 
 class AudioRecorder:
@@ -31,7 +32,6 @@ class AudioRecorder:
             )
             self.is_recording = True
             print("Recording started...")
-
             # Start recording in a separate thread to allow non-blocking behavior
             self.recording_thread = threading.Thread(target=self._record)
             self.recording_thread.start()
@@ -64,8 +64,8 @@ class AudioRecorder:
             )
 
             filename = f"{id}.mp3"
-            audio_segment.export(f"./{filename}", format="mp3")
-            print(f"Audio saved as {filename}")
+            audio_segment.export(f"{RECORDINGS_FOLDER}/{filename}", format="mp3")
+            print(f"Audio saved as {RECORDINGS_FOLDER}/{filename}")
             return filename
 
 
@@ -84,17 +84,19 @@ def stop_AR(id):
     return recordings[id].stop_recording(id)
 
 
-def process_AR(filename):
-    model = whisper.load_model("./tiny.pt")
-    result = model.transcribe(f"./{filename}")
-    recorded_text = result["text"]
+def transcribe_AR(filename):
+    model = whisper.load_model("../../tiny.pt")
+    result = model.transcribe(f"{RECORDINGS_FOLDER}/{filename}")
+    transcription = result["text"]
+    return transcription
 
+def process_AR(transcription):
     # ChatGPT prompt
     prompt = (
         """Given the following text, provide any information that was stated regarding the
     categories of mental status, hypotension, kidney, hypoglycemia, pressure injury, skin damage,
     dehydration, respirator infection, other infection: \""""
-        + recorded_text
+        + transcription
         + """\" Return your
     answer in the form below, leaving unmentioned categories as empty strings:
         format: {
@@ -116,3 +118,12 @@ def process_AR(filename):
     )
 
     return response.choices[0].message.content
+
+# ar = AudioRecorder()
+# id = ar.start_recording()
+# import time
+# time.sleep(7)
+# filename = ar.stop_recording(id)
+# transcription = transcribe_AR(filename)
+# print(transcription)
+# print(process_AR(transcription))
