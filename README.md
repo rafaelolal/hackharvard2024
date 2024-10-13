@@ -4,15 +4,17 @@
 
 * `brew install portaudio`
 * `brew install ffmpeg`
-* `python -m venv env`
-* `source env/bin/activate`
+* `python[3] -m venv env`
+* `source env/bin/activate` (MacOS)
 * `pip install -r requirements.txt`
+* Download a whisper model from `https://github.com/openai/whisper/blob/main/whisper/__init__.py`
 * .env variables needed
     * `OPENAI_API_KEY`
     * `RECORDING_FOLDER`
     * `WHISPER_MODEL`
     * `FHIR_SERVER_URL` (optional)
-* `python manage.py runserver`
+* `python backend/manage.py migrate`
+* `python backend/manage.py runserver`
 
 # API Endpoints
 
