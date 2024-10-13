@@ -161,8 +161,30 @@ async function newpt(event) {
     } catch (error) {
         create_newpt.className = "btn btn-danger";
         setTimeout(() => { create_newpt.className = "btn btn-primary"; }, 2000); // 2000 milliseconds (2 seconds)
-
     }
+
+    fetch(`http://127.0.0.1:8000/get_patient/${searchQuery}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("mid")
+            // if (response.status == 500) {
+            //     data = "Not Found";
+            // }
+            set_data(data);
+
+            console.log("Patient Data");
+            // You can store the recorder_id or use it as needed
+        })
+        .catch(error => {
+            console.log("Patient Data Error Caught", error)
+            set_data("Not Found");
+        });
+    searchInput.value = "";
 
 }
 
