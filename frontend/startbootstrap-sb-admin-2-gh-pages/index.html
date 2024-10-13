@@ -18,7 +18,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
 
 </head>
 
@@ -33,7 +33,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-clipboard-list"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">  QuickDeets </div>
             </a>
@@ -164,10 +164,10 @@
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                            <input id="searchInput" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2" autocomplete = "off">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button id="searchButton" class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -261,7 +261,7 @@
                         <div id = "R1C1", class = "col-lg-4"> <div class = "card shadow mb-4">
 
                             <a class = "d-block card-header py-3", href = "#R1C1_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R1C1_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R1C1 Source </h6>
+                                <h6 class = "m-0 font-weight-bold text-primary"> Mental Status </h6>
                             </a>
 
                             <div class = "collapse", id = "R1C1_content"> <div class = "card-body">
@@ -273,7 +273,7 @@
                         <div id = "R1C2", class = "col-lg-4"> <div class = "card shadow mb-4">
 
                             <a class = "d-block card-header py-3", href = "#R1C2_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R1C2_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R1C2 Source </h6>
+                                <h6 class = "m-0 font-weight-bold text-primary"> Hypotension </h6>
                             </a>
 
                             <div class = "collapse", id = "R1C2_content"> <div class = "card-body">
@@ -285,7 +285,7 @@
                         <div id = "R1C3", class = "col-lg-4"> <div class = "card shadow mb-4">
 
                             <a class = "d-block card-header py-3", href = "#R1C3_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R1C3_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R1C3 Source </h6>
+                                <h6 class = "m-0 font-weight-bold text-primary"> Kidney </h6>
                             </a>
 
                             <div class = "collapse", id = "R1C3_content"> <div class = "card-body">
@@ -301,7 +301,7 @@
                         <div id = "R2C1", class = "col-lg-4"> <div class = "card shadow mb-4">
 
                             <a class = "d-block card-header py-3", href = "#R2C1_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R2C1_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R2C1 Source </h6>
+                                <h6 class = "m-0 font-weight-bold text-primary"> Hypoglycemia </h6>
                             </a>
 
                             <div class = "collapse", id = "R2C1_content"> <div class = "card-body">
@@ -313,7 +313,7 @@
                         <div id = "R2C2", class = "col-lg-4"> <div class = "card shadow mb-4">
 
                             <a class = "d-block card-header py-3", href = "#R2C2_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R2C2_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R2C2 Source </h6>
+                                <h6 class = "m-0 font-weight-bold text-primary"> Pressure Injury </h6>
                             </a>
 
                             <div class = "collapse", id = "R2C2_content"> <div class = "card-body">
@@ -325,7 +325,7 @@
                         <div id = "R2C3", class = "col-lg-4"> <div class = "card shadow mb-4">
 
                             <a class = "d-block card-header py-3", href = "#R2C3_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R2C3_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R2C3 Source </h6>
+                                <h6 class = "m-0 font-weight-bold text-primary"> Skin tear, Abrasion, Breakdown </h6>
                             </a>
 
                             <div class = "collapse", id = "R2C3_content"> <div class = "card-body">
@@ -341,7 +341,7 @@
                         <div id = "R3C1", class = "col-lg-4"> <div class = "card shadow mb-4">
 
                             <a class = "d-block card-header py-3", href = "#R3C1_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R3C1_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R3C1 Source </h6>
+                                <h6 class = "m-0 font-weight-bold text-primary"> Dehydration - Fluid/electrolyte </h6>
                             </a>
 
                             <div class = "collapse", id = "R3C1_content"> <div class = "card-body">
@@ -353,7 +353,7 @@
                         <div id = "R3C2", class = "col-lg-4"> <div class = "card shadow mb-4">
 
                             <a class = "d-block card-header py-3", href = "#R3C2_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R3C2_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R3C2 Source </h6>
+                                <h6 class = "m-0 font-weight-bold text-primary"> Respiratory Infection </h6>
                             </a>
 
                             <div class = "collapse", id = "R3C2_content"> <div class = "card-body">
@@ -365,7 +365,7 @@
                         <div id = "R3C3", class = "col-lg-4"> <div class = "card shadow mb-4">
 
                             <a class = "d-block card-header py-3", href = "#R3C3_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R3C3_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R3C3 Source </h6>
+                                <h6 class = "m-0 font-weight-bold text-primary"> Other Infection </h6>
                             </a>
 
                             <div class = "collapse", id = "R3C3_content"> <div class = "card-body">
@@ -376,46 +376,55 @@
 
                     </div>
 
-                    <div id = "R4", class = "row">
+                    <!-- Recording Button -->
+                    <script>
 
-                        <div id = "R4C1", class = "col-lg-4"> <div class = "card shadow mb-4">
+                        // Loads recording elements //
+                        document.addEventListener('DOMContentLoaded', function() {
+                            rec_button = document.getElementById("rec_button");
+                            rec_icon = document.getElementById("rec_icon")
+                            rec_text = document.getElementById("rec_text");
+                        });
+                        var recording = false;
 
-                            <a class = "d-block card-header py-3", href = "#R4C1_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R4C1_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R4C1 Source </h6>
-                            </a>
+                        // Toggles recording status and sends information about a recording's time interval //
+                        function record(){
+                            event.preventDefault();
+                            if (recording){
+                                rec_button.className = "btn btn-success btn-icon-split";
+                                rec_icon.className = "far fa-play-circle";
+                                rec_text.innerHTML = "Start Recording";
+                                // Send information to Anu's portion.
+                            } else {
+                                rec_button.className = "btn btn-danger btn-icon-split";
+                                rec_icon.className = "far fa-pause-circle";
+                                rec_text.innerHTML = "Stop Recording";
+                                // Send information to Anu's portion.
+                            }
+                            recording = !recording;
+                        }
+                    </script>
 
-                            <div class = "collapse", id = "R4C1_content"> <div class = "card-body">
-                                Information about R4C1 harm harm source.
-                            </div> </div>
+                    <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split" >
+                        <span class = "icon text-grey-100">
+                            <i id = "rec_icon", class = "far fa-play-circle"></i>
+                        </span>
+                        <span id = "rec_text", class = "text", onclick = "record()"> Start Recording </span>
+                    </a>
 
-                        </div> </div>
+                    <a id = "save_button", href = "#", class = "btn btn-primary btn-icon-split">
+                        <span class = "icon text-grey-100">
+                            <i id = "save_icon", class = "far fa-save"></i>
+                        </span>
+                        <span id = "save_text", class = "text"> Save Changes </span>
+                    </a>
 
-                        <div id = "R4C2", class = "col-lg-4"> <div class = "card shadow mb-4">
-
-                            <a class = "d-block card-header py-3", href = "#R4C2_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R4C2_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R4C2 Source </h6>
-                            </a>
-
-                            <div class = "collapse", id = "R4C2_content"> <div class = "card-body">
-                                Information about R4C2 harm source harm.
-                            </div> </div>
-
-                        </div> </div>
-
-                        <div id = "R4C3", class = "col-lg-4"> <div class = "card shadow mb-4">
-
-                            <a class = "d-block card-header py-3", href = "#R4C3_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R4C3_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R4C3 Source </h6>
-                            </a>
-
-                            <div class = "collapse", id = "R4C3_content"> <div class = "card-body">
-                                Information about R4C3 harm source.
-                            </div> </div>
-
-                        </div> </div>
-
-                    </div>
-
+                    <a id = "pull_button", href = "#", class = "btn btn-pull btn-icon-split">
+                        <span class = "icon text-grey-100">
+                            <i id = "pull_icon", class = "far fa-save"></i>
+                        </span>
+                        <span id = "pull_text", class = "text"> Pull Whisper Data </span>
+                    </a>
 
 
 
@@ -468,6 +477,28 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function dummy_search(searchQuery) {
+            console.log("User searched for: " + searchQuery)
+            return [1,2,3,searchQuery]
+        }
+
+        searchInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent the form from submitting
+                searchButton.click(); // Trigger the button click action
+            }
+        });
+
+        document.getElementById('searchButton').addEventListener('click', function() {
+            event.preventDefault();
+            let searchQuery = document.getElementById('searchInput').value;
+            console.log(dummy_search(searchQuery));
+
+            searchInput.value = "";
+        });
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
