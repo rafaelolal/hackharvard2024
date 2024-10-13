@@ -63,7 +63,7 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Components</span>
                 </a>
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
@@ -376,64 +376,28 @@
 
                     </div>
 
-                    <div id = "R4", class = "row">
-
-                        <div id = "R4C1", class = "col-lg-4"> <div class = "card shadow mb-4">
-
-                            <a class = "d-block card-header py-3", href = "#R4C1_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R4C1_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R4C1 Source </h6>
-                            </a>
-
-                            <div class = "collapse", id = "R4C1_content"> <div class = "card-body">
-                                Information about R4C1 harm harm source.
-                            </div> </div>
-
-                        </div> </div>
-
-                        <div id = "R4C2", class = "col-lg-4"> <div class = "card shadow mb-4">
-
-                            <a class = "d-block card-header py-3", href = "#R4C2_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R4C2_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R4C2 Source </h6>
-                            </a>
-
-                            <div class = "collapse", id = "R4C2_content"> <div class = "card-body">
-                                Information about R4C2 harm source harm.
-                            </div> </div>
-
-                        </div> </div>
-
-                        <div id = "R4C3", class = "col-lg-4"> <div class = "card shadow mb-4">
-
-                            <a class = "d-block card-header py-3", href = "#R4C3_content", data-toggle = "collapse", role = "button", aria-expanded = "true", aria-controls = "R4C3_content">
-                                <h6 class = "m-0 font-weight-bold text-primary"> R4C3 Source </h6>
-                            </a>
-
-                            <div class = "collapse", id = "R4C3_content"> <div class = "card-body">
-                                Information about R4C3 harm source.
-                            </div> </div>
-
-                        </div> </div>
-
-                    </div>
-
                     <!-- Recording Button -->
                     <script>
 
                         // Loads recording elements //
                         document.addEventListener('DOMContentLoaded', function() {
                             button = document.getElementById('rec_button');
+                            icon = document.getElementById("icon")
                             text = document.getElementById('button_text');
                         });
                         var recording = false;
 
                         // Toggles recording status and sends information about a recording's time interval //
                         function record(){
+                            event.preventDefault();
                             if (recording){
                                 button.className = "btn btn-success btn-icon-split";
+                                icon.className = "far fa-play-circle";
                                 text.innerHTML = "Start Recording";
                                 // Send information to Anu's portion.
                             } else {
                                 button.className = "btn btn-danger btn-icon-split";
+                                icon.className = "far fa-pause-circle";
                                 text.innerHTML = "Stop Recording";
                                 // Send information to Anu's portion.
                             }
@@ -441,15 +405,23 @@
                         }
                     </script>
 
-                    <div class = "my-2"></div>
-                        <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split">
-                            <span class = "icon text-white-50">
-                                <i class = "fas fa-trash"></i>
+                    <div id = "Button Row", class = "row">
+
+                        <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split" >
+                            <span class = "icon text-grey-100">
+                                <i id = "icon", class = "far fa-play-circle"></i>
                             </span>
                             <span id = "button_text", class = "text", onclick = "record()"> Start Recording </span>
                         </a>
 
+                        <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split">
+                            <span class = "icon text-grey-100">
+                                <i id = "icon", class = "far fa-play-circle"></i>
+                            </span>
+                            <span id = "button_text", class = "text", onclick = "record()"> Start Recording </span>
+                        </a>
 
+                    </div>
 
 
 
