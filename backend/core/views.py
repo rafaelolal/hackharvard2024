@@ -17,6 +17,8 @@ def update_or_create_patient(request, id):
     data = data.get("data")
     patient.records.create(transcription=transcription, data=data)
 
+    return JsonResponse({"success": True})
+
 
 @csrf_exempt
 def initialize_patient(request, id):
@@ -54,14 +56,14 @@ def initialize_patient(request, id):
 
     patient.records.create(transcription="", data=data)
 
-    return JsonResponse({data})
+    return JsonResponse({"success": True})
 
 
 @csrf_exempt
-def get_patient(request, patient_id):
-    patient = Patient.objects.get(id=patient_id)
+def get_patient(request, id):
+    patient = Patient.objects.get(id=id)
     latest_record = patient.records.latest("datetime")
-    return JsonResponse(latest_record.data)
+    return JsonResponse({"data": latest_record.data})
 
 
 @csrf_exempt
