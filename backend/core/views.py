@@ -1,8 +1,10 @@
+import json
+
 import requests
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
+
 from .models import Patient
 from .recorder import create_AR, process_AR, stop_AR, transcribe_AR
 
@@ -280,6 +282,8 @@ def stop_recording(request, recorder_id):
 def get_suggestion(request, filename):
     transcription = transcribe_AR(filename)
     suggestion = process_AR(transcription)
+    suggestion = json.loads(suggestion)
+
     return JsonResponse(
         {"suggestion": suggestion, "transcription": transcription}
     )

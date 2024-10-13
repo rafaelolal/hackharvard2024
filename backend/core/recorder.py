@@ -102,7 +102,7 @@ def process_AR(transcription):
     dehydration, respirator infection, other infection: \""""
         + transcription
         + """\" Return your
-    answer in the form below, leaving unmentioned categories as empty strings:
+    answer in the form below, leaving unmentioned categories as empty strings in a valid json string:
         format: {
          "mental_status": "",
          "hypotension": "",
@@ -112,7 +112,7 @@ def process_AR(transcription):
          "skin_damage": "",
          "dehydration": "",
          "respirator_infection": "",
-         "other_infection": "",
+         "other_infection": ""
      }"""
     )
 

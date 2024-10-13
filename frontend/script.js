@@ -12,7 +12,7 @@ var cur_id;
 //     return [1,2,3,searchQuery]
 // }
 
-function set_data(data) {
+function set_data(data, clear) {
     var card = document.getElementById("patientCard");
     if (data == "Not Found") {
         card.style.display = "block"; // Show Not Found Card
@@ -20,18 +20,36 @@ function set_data(data) {
     }
     card.style.display = "none"; // Hide Not Found Card
 
+    if (clear) {
+        document.querySelector('#R1C1 textarea').value = ""
+        document.querySelector('#R1C2 textarea').value = ""
+        document.querySelector('#R1C3 textarea').value = ""
+        document.querySelector('#R2C1 textarea').value = ""
+        document.querySelector('#R2C2 textarea').value = ""
+        document.querySelector('#R2C3 textarea').value = ""
+        document.querySelector('#R3C1 textarea').value = ""
+        document.querySelector('#R3C2 textarea').value = ""
+        document.querySelector('#R3C3 textarea').value = ""
+    }
+
+    if (data.data) {
+        data = data.data
+    }
+
+    console.log({ my_data: data })
+
     // Fill Text Boxes
-    document.querySelector('#R1C1 textarea').value = data.mental_status ? data.mental_status : ""
-    document.querySelector('#R1C2 textarea').value = data.hypotension ? data.hypotension : ""
-    document.querySelector('#R1C3 textarea').value = data.kidney ? data.kidney : ""
+    document.querySelector('#R1C1 textarea').value += "\n\n" + (data.mental_status ? data.mental_status : "")
+    document.querySelector('#R1C2 textarea').value += "\n\n" + (data.hypotension ? data.hypotension : "")
+    document.querySelector('#R1C3 textarea').value += "\n\n" + (data.kidney ? data.kidney : "")
 
-    document.querySelector('#R2C1 textarea').value = data.hypoglycemia ? data.hypoglycemia : ""
-    document.querySelector('#R2C2 textarea').value = data.pressure_injury ? data.pressure_injury : ""
-    document.querySelector('#R2C3 textarea').value = data.skin_damage ? data.skin_damage : ""
+    document.querySelector('#R2C1 textarea').value += "\n\n" + (data.hypoglycemia ? data.hypoglycemia : "")
+    document.querySelector('#R2C2 textarea').value += "\n\n" + (data.pressure_injury ? data.pressure_injury : "")
+    document.querySelector('#R2C3 textarea').value += "\n\n" + (data.skin_damage ? data.skin_damage : "")
 
-    document.querySelector('#R3C1 textarea').value = data.dehydration ? data.dehydration : ""
-    document.querySelector('#R3C2 textarea').value = data.respirator_infection ? data.respirator_infection : ""
-    document.querySelector('#R3C3 textarea').value = data.other_infection ? data.other_infection : ""
+    document.querySelector('#R3C1 textarea').value += "\n\n" + (data.dehydration ? data.dehydration : "")
+    document.querySelector('#R3C2 textarea').value += "\n\n" + (data.respirator_infection ? data.respirator_infection : "")
+    document.querySelector('#R3C3 textarea').value += "\n\n" + (data.other_infection ? data.other_infection : "")
 
 }
 
@@ -71,16 +89,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 //     data = "Not Found";
                 // }
                 cur_id = searchQuery;
-                set_data(data.data);
+                set_data(data.data, true);
 
-                console.log("Patient Data");
+                console.log("Patient Data", data);
                 // You can store the recorder_id or use it as needed
             })
             .catch(error => {
                 console.log("Patient Data Error Caught", error)
-                set_data("Not Found");
+                set_data("Not Found", true);
             });
-        searchInput.value = "";
+        // searchInput.value = "";
         console.log("end")
     });
 
@@ -110,7 +128,7 @@ async function record() {
         rec_icon.className = "far fa-play-circle";
         rec_text.innerHTML = "Start Recording";
         pull_button.className = "btn btn-primary btn-icon-split";
-        const filename = await stopRecording(recording_id);
+        filename = await stopRecording(recording_id);
         [updates, transcript] = await processRecording(filename);
         audio_transcript.style.display = "block";
         transcript_body.innerHTML = transcript
@@ -127,22 +145,18 @@ async function record() {
 }
 
 function pull() {
-    event.preventDefault();
+    // event.preventDefault();
     if (pull_button.className == "btn btn-primary btn-icon-split") {
-        var updates, transcript_log;
         pull_button.className = "btn btn-secondaryOff btn-icon-split disabled";
         fetch(`${BASE}/get_suggestion/${filename}/`,
             { method: "POST", headers: { "Content-Type": "application/json" }, })
             .then(response => response.json())
             .then(data => {
-                updates = data.suggestion;
-                transcript_log = data.transcription
-                audio_transcript.style.display = "block";
-                transcript_body.innerHTML = transcript_log;
+                set_data(data.suggestion, false);
             })
             .catch(error => { console.error('Error getting data:', error); });
     }
-    return [updates, transcript_log];
+    // return [updates, transcript_log];
 }
 
 function save() {
@@ -236,7 +250,7 @@ async function stopRecording(id) {
             headers: { 'Content-Type': 'application/json' },
         });
         const data = await response.json();
-        const filename = data.filename;  // Extract the filename
+        filename = data.filename;  // Extract the filename
         return filename;  // Return the filename so it can be used in record()
     } catch (error) {
         console.error('Error stopping recording:', error);
