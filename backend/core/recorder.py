@@ -1,11 +1,12 @@
-import whisper
-import pyaudio
-from pydub import AudioSegment
 import threading
-import openai
-from openai import OpenAI
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+import pyaudio
+import whisper
+from django.conf import settings
+from openai import OpenAI
+from pydub import AudioSegment
+
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 
 class AudioRecorder:
@@ -21,9 +22,13 @@ class AudioRecorder:
     def start_recording(self):
         if not self.is_recording:
             # Start the PyAudio stream
-            self.stream = self.audio.open(format=pyaudio.paInt16, channels=self.channels,
-                                          rate=self.rate, input=True,
-                                          frames_per_buffer=self.chunk)
+            self.stream = self.audio.open(
+                format=pyaudio.paInt16,
+                channels=self.channels,
+                rate=self.rate,
+                input=True,
+                frames_per_buffer=self.chunk,
+            )
             self.is_recording = True
             print("Recording started...")
 
@@ -52,10 +57,10 @@ class AudioRecorder:
 
             # Save the recorded data as an MP3 file
             audio_segment = AudioSegment(
-                data=b''.join(self.frames),
+                data=b"".join(self.frames),
                 sample_width=self.audio.get_sample_size(pyaudio.paInt16),
                 frame_rate=self.rate,
-                channels=self.channels
+                channels=self.channels,
             )
 
             filename = f"{id}.mp3"
@@ -63,7 +68,9 @@ class AudioRecorder:
             print(f"Audio saved as {filename}")
             return filename
 
+
 recordings = dict()
+
 
 def create_AR():
     recorder = AudioRecorder()
@@ -72,8 +79,10 @@ def create_AR():
     recorder.start_recording()
     return id
 
+
 def stop_AR(id):
     return recordings[id].stop_recording(id)
+
 
 def process_AR(filename):
     model = whisper.load_model("./tiny.pt")
@@ -81,9 +90,12 @@ def process_AR(filename):
     recorded_text = result["text"]
 
     # ChatGPT prompt
-    prompt = """Given the following text, provide any information that was stated regarding the
+    prompt = (
+        """Given the following text, provide any information that was stated regarding the
     categories of mental status, hypotension, kidney, hypoglycemia, pressure injury, skin damage,
-    dehydration, respirator infection, other infection: \"""" + recorded_text + """\" Return your
+    dehydration, respirator infection, other infection: \""""
+        + recorded_text
+        + """\" Return your
     answer in the form below, leaving unmentioned categories as empty strings:
         format: {
          "mental_status": "",
@@ -96,22 +108,11 @@ def process_AR(filename):
          "respirator_infection": "",
          "other_infection": "",
      }"""
+    )
 
     messages2 = [{"role": "user", "content": prompt}]
     response = client.chat.completions.create(
-        messages = messages2,
-        model="gpt-4",
-        max_tokens=150,
-        temperature=0.7
+        messages=messages2, model="gpt-4", max_tokens=150, temperature=0.7
     )
 
-
     return response.choices[0].message.content
-
-
-ar = AudioRecorder()
-id = ar.start_recording()
-import time
-time.sleep(10)
-filename = ar.stop_recording(id)
-process_AR(filename)
