@@ -16,6 +16,20 @@
 * `python backend/manage.py migrate`
 * `python backend/manage.py runserver`
 
+## Synthea custom settings
+`synthea/src/main/resources/synthea.properties`
+```
+# HackHarvard 2024 custom settings
+exporter.fhir.use_us_core_ig = true
+exporter.fhir.transaction_bundle = true
+# exporter.fhir.bulk_data = true
+exporter.fhir.server_url = http://localhost:8080/fhir
+```
+
+## Synthea data generator
+Ensure file is executable `chmod +x ./gen_and_upload.sh`
+Ensure ./run_synthea is pointing to the correct synthea directory
+
 # API Endpoints
 
 `/create_patient/[id]/` -> `{success}`
