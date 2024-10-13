@@ -35,6 +35,7 @@ function set_data(data) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+
     searchInput.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault(); // Prevent the page refresh
@@ -80,6 +81,14 @@ document.addEventListener('DOMContentLoaded', function () {
         searchInput.value = "";
         console.log("end")
     });
+
+    document.getElementById("newpt_id").addEventListener('keydown', function (e) {
+        // Block 'e', 'E', '+', '-', '.' from being typed in
+        if (e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-' || e.key === '.') {
+            e.preventDefault();  // Prevent the character from being entered
+        }
+    });
+
 });
 
 // document.addEventListener('DOMContentLoaded', function () {
@@ -108,6 +117,8 @@ async function record() {
         rec_button.className = "btn btn-danger btn-icon-split";
         rec_icon.className = "far fa-pause-circle";
         rec_text.innerHTML = "Stop Recording";
+        audio_transcript.style.display = "none";
+
         startRecording();
     }
     recording = !recording;
@@ -137,11 +148,8 @@ function save() {
 
 }
 
-function newpt() {
+function newpt(event) {
     event.preventDefault();
-
-
-
 }
 
 function startRecording() {
