@@ -18,17 +18,19 @@ function set_data(data) {
         return
     }
     card.style.display = "none"; // Hide Not Found Card
-    document.querySelector('#R1C1 textarea') = data.mental_status;
-    document.querySelector('#R1C2 textarea') = data.hypotension;
-    document.querySelector('#R1C3 textarea') = data.kidney;
 
-    document.querySelector('#R2C1 textarea') = data.hypoglycemia;
-    document.querySelector('#R2C2 textarea') = data.pressure_injury;
-    document.querySelector('#R2C3 textarea') = data.skin_damage;
+    // Fill Text Boxes
+    document.querySelector('#R1C1 textarea').value = data.mental_status ? data.mental_status : ""
+    document.querySelector('#R1C2 textarea').value = data.hypotension ? data.hypotension : ""
+    document.querySelector('#R1C3 textarea').value = data.kidney ? data.kidney : ""
 
-    document.querySelector('#R3C1 textarea') = data.dehydration;
-    document.querySelector('#R3C2 textarea') = data.respirator_infection;
-    document.querySelector('#R3C3 textarea') = data.other_infection;
+    document.querySelector('#R2C1 textarea').value = data.hypoglycemia ? data.hypoglycemia : ""
+    document.querySelector('#R2C2 textarea').value = data.pressure_injury ? data.pressure_injury : ""
+    document.querySelector('#R2C3 textarea').value = data.skin_damage ? data.skin_damage : ""
+
+    document.querySelector('#R3C1 textarea').value = data.dehydration ? data.dehydration : ""
+    document.querySelector('#R3C2 textarea').value = data.respirator_infection ? data.respirator_infection : ""
+    document.querySelector('#R3C3 textarea').value = data.other_infection ? data.other_infection : ""
 
 }
 
@@ -63,16 +65,16 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 console.log("mid")
-                if (response.status == 500) {
-                    data = "Not Found";
-                }
-                set_data("Not Found");
+                // if (response.status == 500) {
+                //     data = "Not Found";
+                // }
+                set_data(data);
 
                 console.log("Patient Data");
                 // You can store the recorder_id or use it as needed
             })
             .catch(error => {
-                console.log("Patient Data Error Caught")
+                console.log("Patient Data Error Caught", error)
                 set_data("Not Found");
             });
         searchInput.value = "";
