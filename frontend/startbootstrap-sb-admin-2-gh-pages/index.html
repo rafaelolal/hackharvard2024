@@ -186,6 +186,27 @@
 
                     </form>
 
+                    <div id = "patientCard" class="col-xl-3 col-md-6 mb-4 mt-4 custom-margin" style="display: none;">
+                        <div class="card border-left-danger shadow h-100 py-0">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="h20 mb-0 font-weight-bold text-gray-800">Patient Not Found</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-times-circle fa-1.7x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                    .custom-margin {
+                        margin-left: -350px; /* Adjust this value to move the card farther to the left */
+                    }
+                    </style>
+
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -470,14 +491,25 @@
     <!-- Search Query -->
     <script>
 
-        function dummy_search(searchQuery) {
-            console.log("User searched for: " + searchQuery)
-            return [1,2,3,searchQuery]
+        // function dummy_search(searchQuery) {
+        //     console.log("User searched for: " + searchQuery)
+        //     return [1,2,3,searchQuery]
+        // }
+        function set_data(data) {
+            var card = document.getElementById("patientCard");
+            if (data == "Not Found") {
+                card.style.display = "block"; // Show Not Found Card
+                return
+            }
+            card.style.display = "none"; // Hide Not Found Card
+            console.log("got Data")
+
+
         }
 
         searchInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
-                event.preventDefault(); // Prevent the form from submitting
+                event.preventDefault(); // Prevent the page refresh
                 searchButton.click(); // Trigger the button click action
             }
         });
@@ -485,8 +517,40 @@
         document.getElementById('searchButton').addEventListener('click', function() {
             event.preventDefault();
             let searchQuery = document.getElementById('searchInput').value;
-            console.log(dummy_search(searchQuery));
-            searchInput.value = "";
+
+            console.log("start")
+
+            // fetch(`${BASE}/get_patient/${searchQuery}`).then(response => {
+            //     if (response.status == 500){
+            //         data = "Not Found";
+            //     } else {
+            //         data = response;
+            //     }
+            //     set_data(data)
+            // });
+            fetch(`http://127.0.0.1:8000/get_patient/${searchQuery}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("mid")
+                if (response.status == 500){
+                    data = "Not Found";
+                }
+                set_data("Not Found");
+
+                console.log("Patient Data");
+                // You can store the recorder_id or use it as needed
+            })
+            .catch(error => {
+                console.log("Patient Data Error Caught")
+                set_data("Not Found");
+            });
+        searchInput.value = "";
+        console.log("end")
         });
 
         // Loads elements //
