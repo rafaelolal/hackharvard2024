@@ -148,8 +148,22 @@ function save() {
 
 }
 
-function newpt(event) {
+async function newpt(event) {
     event.preventDefault();
+
+    try {
+        const response = await fetch(`${BASE}/create_patient/${newpt_id.value}/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await response.json();
+        console.log(data)
+    } catch (error) {
+        create_newpt.className = "btn btn-danger";
+        setTimeout(() => { create_newpt.className = "btn btn-primary"; }, 2000); // 2000 milliseconds (2 seconds)
+
+    }
+
 }
 
 function startRecording() {
