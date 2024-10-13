@@ -18,10 +18,20 @@ function set_data(data) {
         return
     }
     card.style.display = "none"; // Hide Not Found Card
-    console.log("got Data")
+    document.querySelector('#R1C1 textarea') = data.mental_status;
+    document.querySelector('#R1C2 textarea') = data.hypotension;
+    document.querySelector('#R1C3 textarea') = data.kidney;
 
+    document.querySelector('#R2C1 textarea') = data.hypoglycemia;
+    document.querySelector('#R2C2 textarea') = data.pressure_injury;
+    document.querySelector('#R2C3 textarea') = data.skin_damage;
+
+    document.querySelector('#R3C1 textarea') = data.dehydration;
+    document.querySelector('#R3C2 textarea') = data.respirator_infection;
+    document.querySelector('#R3C3 textarea') = data.other_infection;
 
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     searchInput.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
@@ -44,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //     }
         //     set_data(data)
         // });
-        fetch(`http://127.0.0.1:8000/get_patient/${searchQuery}`, {
+        fetch(`http://127.0.0.1:8000/get_patient/${searchQuery}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
