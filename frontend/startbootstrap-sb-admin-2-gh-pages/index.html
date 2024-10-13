@@ -28,7 +28,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -63,7 +63,7 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Components</span>
                 </a>
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
@@ -161,17 +161,29 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form class="d-none d-sm-inline-block form-inline mr-3 ml-md-7 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
+
                             <input id="searchInput" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2" autocomplete = "off">
+
                             <div class="input-group-append">
                                 <button id="searchButton" class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
                         </div>
+                    </form>
+
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-7 my-2 my-md-0 mw-100 navbar-search">
+
+                        <a id = "save_button", href = "#", class = "btn btn-primary btn-icon-split", onclick = "newpt()">
+                            <span class = "icon text-grey-100">
+                                <i id = "save_icon", class = "fas fa-user-plus"></i>
+                            </span>
+                            <span id = "save_text", class = "text"> Enter New Patient </span>
+                        </a>
+
                     </form>
 
                     <!-- Topbar Navbar -->
@@ -207,9 +219,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Jane Doe </span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> John Doe </span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="img/undraw_profile_1.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -239,16 +251,6 @@
                 </nav>
                 <!-- End of Topbar -->
 
-
-
-
-
-
-
-
-
-
-
                 <!-- Begin Page Content -->
                 <div class = "container-fluid">
 
@@ -266,6 +268,14 @@
 
                             <div class = "collapse", id = "R1C1_content"> <div class = "card-body">
                                 Information about R1C1 harm source.
+
+                                <form>
+                                    <label for="fname">First name:</label><br>
+                                    <input type="text"><br>
+                                    <label for="lname">Last name:</label><br>
+                                    <input type="text"><br><br>
+                                </form>
+
                             </div> </div>
 
                         </div> </div>
@@ -376,60 +386,26 @@
 
                     </div>
 
-                    <!-- Recording Button -->
-                    <script>
-
-                        // Loads recording elements //
-                        document.addEventListener('DOMContentLoaded', function() {
-                            rec_button = document.getElementById("rec_button");
-                            rec_icon = document.getElementById("rec_icon")
-                            rec_text = document.getElementById("rec_text");
-                        });
-                        var recording = false;
-
-                        // Toggles recording status and sends information about a recording's time interval //
-                        function record(){
-                            event.preventDefault();
-                            if (recording){
-                                rec_button.className = "btn btn-success btn-icon-split";
-                                rec_icon.className = "far fa-play-circle";
-                                rec_text.innerHTML = "Start Recording";
-                                // Send information to Anu's portion.
-                            } else {
-                                rec_button.className = "btn btn-danger btn-icon-split";
-                                rec_icon.className = "far fa-pause-circle";
-                                rec_text.innerHTML = "Stop Recording";
-                                // Send information to Anu's portion.
-                            }
-                            recording = !recording;
-                        }
-                    </script>
-
-                    <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split" >
+                    <a id = "rec_button", href = "#", class = "btn btn-success btn-icon-split", onclick = "record()">
                         <span class = "icon text-grey-100">
                             <i id = "rec_icon", class = "far fa-play-circle"></i>
                         </span>
-                        <span id = "rec_text", class = "text", onclick = "record()"> Start Recording </span>
+                        <span id = "rec_text", class = "text"> Start Recording </span>
                     </a>
 
-                    <a id = "save_button", href = "#", class = "btn btn-primary btn-icon-split">
+                    <a id = "pull_button", href = "#", class = "btn btn-secondaryOff btn-icon-split disabled", onclick = "pull()">
+                        <span class = "icon text-grey-100">
+                            <i id = "pull_icon", class = "fas fa-file-import"></i>
+                        </span>
+                        <span id = "pull_text", class = "text"> Pull Whisper Data </span>
+                    </a>
+
+                    <a id = "save_button", href = "#", class = "btn btn-primary btn-icon-split", onclick = "save()">
                         <span class = "icon text-grey-100">
                             <i id = "save_icon", class = "far fa-save"></i>
                         </span>
                         <span id = "save_text", class = "text"> Save Changes </span>
                     </a>
-
-                    <a id = "pull_button", href = "#", class = "btn btn-pull btn-icon-split">
-                        <span class = "icon text-grey-100">
-                            <i id = "pull_icon", class = "far fa-save"></i>
-                        </span>
-                        <span id = "pull_text", class = "text"> Pull Whisper Data </span>
-                    </a>
-
-
-
-
-
 
                 </div>
                 <!-- /.container-fluid -->
@@ -478,7 +454,9 @@
         </div>
     </div>
 
+    <!-- Search Query -->
     <script>
+
         function dummy_search(searchQuery) {
             console.log("User searched for: " + searchQuery)
             return [1,2,3,searchQuery]
@@ -495,9 +473,53 @@
             event.preventDefault();
             let searchQuery = document.getElementById('searchInput').value;
             console.log(dummy_search(searchQuery));
-
             searchInput.value = "";
         });
+
+        // Loads elements //
+        document.addEventListener('DOMContentLoaded', function() {
+            rec_button = document.getElementById("rec_button");
+            rec_icon = document.getElementById("rec_icon");
+            rec_text = document.getElementById("rec_text");
+            pull_button = document.getElementById("pull_button");
+
+        });
+        var recording = false;
+
+        // Click Functions //
+        function record(){
+            event.preventDefault();
+            if (recording){
+                rec_button.className = "btn btn-success btn-icon-split";
+                rec_icon.className = "far fa-play-circle";
+                rec_text.innerHTML = "Start Recording";
+                pull_button.className = "btn btn-primary btn-icon-split";
+
+                // Send information to Anu's portion.
+            } else {
+                rec_button.className = "btn btn-danger btn-icon-split";
+                rec_icon.className = "far fa-pause-circle";
+                rec_text.innerHTML = "Stop Recording";
+                // Send information to Anu's portion.
+            }
+            recording = !recording;
+        }
+
+        function pull(){
+            event.preventDefault();
+            if (pull_button.className == "btn btn-primary btn-icon-split") {
+                pull_button.className = "btn btn-secondaryOff btn-icon-split disabled";
+            }
+        }
+
+        function save(){
+            event.preventDefault();
+        }
+
+        function newpt(){
+            event.preventDefault();
+        }
+
     </script>
 
     <!-- Bootstrap core JavaScript-->
