@@ -22,7 +22,11 @@ urlpatterns = [
         get_suggestion,
         name="get_whisper_suggestions",
     ),
-    path("initialize_patient/", initialize_patient, name="create_patient"),
+    path(
+        "initialize_patient/<str:id>/",
+        initialize_patient,
+        name="initialize_patient",
+    ),
     path("start_recording/", start_recording, name="start_recording"),
     path(
         "stop_recording/<str:recorder_id>/",
