@@ -7,7 +7,8 @@ from openai import OpenAI
 from pydub import AudioSegment
 
 client = OpenAI(api_key=settings.OPENAI_API_KEY)
-RECORDINGS_FOLDER = "../../recordings"
+RECORDINGS_FOLDER = settings.RECORDINGS_FOLDER
+MODEL = settings.WHISPER_MODEL
 
 
 class AudioRecorder:
@@ -64,7 +65,9 @@ class AudioRecorder:
             )
 
             filename = f"{id}.mp3"
-            audio_segment.export(f"{RECORDINGS_FOLDER}/{filename}", format="mp3")
+            audio_segment.export(
+                f"{RECORDINGS_FOLDER}/{filename}", format="mp3"
+            )
             print(f"Audio saved as {RECORDINGS_FOLDER}/{filename}")
             return filename
 
@@ -81,14 +84,15 @@ def create_AR():
 
 
 def stop_AR(id):
-    return recordings[id].stop_recording(id)
+    return recordings[int(id)].stop_recording(id)
 
 
 def transcribe_AR(filename):
-    model = whisper.load_model("../../tiny.pt")
+    model = whisper.load_model(MODEL)
     result = model.transcribe(f"{RECORDINGS_FOLDER}/{filename}")
     transcription = result["text"]
     return transcription
+
 
 def process_AR(transcription):
     # ChatGPT prompt
@@ -118,6 +122,7 @@ def process_AR(transcription):
     )
 
     return response.choices[0].message.content
+
 
 # ar = AudioRecorder()
 # id = ar.start_recording()

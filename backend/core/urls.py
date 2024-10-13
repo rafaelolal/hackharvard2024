@@ -1,16 +1,22 @@
 from django.urls import path
 
 from .views import (
-    create_patient,
     get_patient,
-    get_whisper_suggestions,
+    get_suggestion,
+    initialize_patient,
     start_recording,
     stop_recording,
+    update_or_create_patient,
 )
 
 urlpatterns = [
-    path("create_patient/", create_patient, name="create_patient"),
-    path("get_patient/<str:patient_id>/", get_patient, name="get_patient"),
+    path("get_patient/<str:id>/", get_patient, name="get_patient"),
+    path(
+        "get_suggestion/<str:filename>/",
+        get_suggestion,
+        name="get_whisper_suggestions",
+    ),
+    path("initialize_patient/", initialize_patient, name="create_patient"),
     path("start_recording/", start_recording, name="start_recording"),
     path(
         "stop_recording/<str:recorder_id>/",
@@ -18,8 +24,8 @@ urlpatterns = [
         name="stop_recording",
     ),
     path(
-        "get_whisper_suggestions/<str:filename>/",
-        get_whisper_suggestions,
-        name="get_whisper_suggestions",
+        "update_or_create_patient/",
+        update_or_create_patient,
+        name="update_or_create_patient",
     ),
 ]
